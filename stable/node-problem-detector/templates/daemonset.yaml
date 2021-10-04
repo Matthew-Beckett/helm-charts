@@ -10,6 +10,7 @@ metadata:
     {{- range $key, $val := .Values.labels }}
     {{ $key }}: {{ $val | quote }}
     {{- end}}
+  namespace: {{ .Release.Namespace }}
 spec:
   updateStrategy:
     type: {{ .Values.updateStrategy }}
@@ -71,6 +72,7 @@ spec:
           volumeMounts:
             - name: log
               mountPath: {{ default (default "/var/log/" .Values.logDir.host) .Values.logDir.pod }}
+              readOnly: true
             - name: localtime
               mountPath: /etc/localtime
               readOnly: true

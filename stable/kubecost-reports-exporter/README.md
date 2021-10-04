@@ -1,6 +1,6 @@
 # kubecost-reports-exporter
 
-![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.4](https://img.shields.io/badge/AppVersion-1.0.4-informational?style=flat-square)
 
 Helm chart for exporting kubernetes cost reports to S3
 
@@ -51,12 +51,13 @@ helm install my-release deliveryhero/kubecost-reports-exporter -f values.yaml
 | env | object | `{}` | Extra environment variables |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"940776968316.dkr.ecr.eu-west-1.amazonaws.com/deliveryhero/kubecost-reports-exporter"` |  |
+| image.repository | string | `"thomasnyambati/kubecost-reports-exporter"` |  |
 | imagePullSecrets | list | `[]` |  |
 | kubecost.aggregatedCostUrl | string | `"/model/aggregatedCostModel?window=1d&aggregation=namespace"` | Url for aggregated cost report |
-| kubecost.analyzerEndpoint | string | `"http://kubecost-cost-analyzer:9090"` | kubecost analyzer endpoint |
 | kubecost.bucketName | string | `"kubecost-reports-exporter"` | S3 Bucket name for reports export |
 | kubecost.clusterName | string | `"change_me"` | Name of the cluster |
+| kubecost.clusters[0].endpoint | string | `"http://kubecost-cost-analyzer:9090"` |  |
+| kubecost.clusters[0].name | string | `"default"` |  |
 | kubecost.logLevel | string | `"info"` | exporter log level. |
 | kubecost.nonAggregatedCostUrl | string | `"/model/costDataModel?timeWindow=1d&offset=1d"` | Url for non-aggregated cost report |
 | nameOverride | string | `""` |  |
@@ -67,7 +68,9 @@ helm install my-release deliveryhero/kubecost-reports-exporter -f values.yaml
 | restartPolicy | string | `"OnFailure"` |  |
 | schedule | string | `"0 * * * *"` |  |
 | securityContext | object | `{}` |  |
-| serviceAccountName | string | `""` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.create | bool | `false` |  |
+| serviceAccount.name | string | `""` |  |
 | successfulJobsHistoryLimit | int | `1` |  |
 | tolerations | list | `[]` |  |
 
